@@ -11,6 +11,7 @@ class Post(models.Model):
     title = models.CharField(max_length=150)
     url = models.CharField(max_length=150)
     univ = models.ForeignKey(Univ, blank=True, null=True, on_delete=models.SET_NULL)
+    new = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
     objects = models.Manager()
