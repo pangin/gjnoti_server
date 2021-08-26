@@ -21,9 +21,9 @@ class UserViewSet(viewsets.ModelViewSet):
         return Response({'error': 'Invalid Data'})
 
     def partial_update(self, request, *args, **kwargs):
-        serializer = UserCreateSerializer(data=request.data, partial=True)
-        if serializer.is_valid(raise_exception=True):
-            # user = serializer.keywords
+        user_serializer = UserCreateSerializer(data=request.data, partial=True)
+        if user_serializer.is_valid(raise_exception=True):
+            user = user_serializer.update(User.objects.get(chat_id=request.data['chat_id']), request.data)
             response_serializer = UserResponseSerializer(user)
             return Response(data=response_serializer.data, status=status.HTTP_206_PARTIAL_CONTENT)
         return Response({'error': 'Invalid Data'})

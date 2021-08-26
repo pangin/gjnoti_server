@@ -19,13 +19,13 @@ from django.urls import include, path
 
 from apps.user.views import UserViewSet
 from apps.univ.views import UnivViewSet
-# from apps.keywords.views import KeywordViewSet
+from apps.keywords.views import KeywordViewSet
 from apps.post.views import PostViewSet
 
 router = routers.DefaultRouter()
 router.register('user', UserViewSet)
 router.register('univ', UnivViewSet)
-# router.register('keyword', KeywordViewSet)
+router.register('keyword', KeywordViewSet)
 router.register('post', PostViewSet)
 
 urlpatterns = [
