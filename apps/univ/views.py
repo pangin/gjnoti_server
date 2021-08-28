@@ -1,5 +1,3 @@
-from django.shortcuts import render
-
 from rest_framework import viewsets
 from apps.univ.models import Univ
 from apps.univ.serializers import UnivSerializer
