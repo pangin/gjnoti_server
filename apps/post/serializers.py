@@ -2,9 +2,14 @@ from rest_framework import serializers
 
 from apps.post.models import Post
 from apps.univ.models import Univ
+from apps.univ.serializers import UnivSerializer
 
 
 class PostResponseSerializer(serializers.ModelSerializer):
+    title = serializers.CharField(max_length=150)
+    url = serializers.CharField(max_length=150)
+    univ = UnivSerializer(many=False, read_only=True)
+
     class Meta:
         model = Post
         fields = '__all__'

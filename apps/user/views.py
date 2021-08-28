@@ -12,6 +12,21 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserResponseSerializer
 
+    def list(self, request, *args, **kwargs):
+        chat_id = self.request.query_params.get('chat_id')
+        keywords = self.request.query_params.get('keywords')
+        univ = self.request.query_params.get('univ')
+        if chat_id:
+            queryset = User.objects.filter(chat_id=chat_id).all()
+            response_serializer = UserResponseSerializer(queryset, many=True)
+            return Response(data=response_serializer.data, status=status.HTTP_200_OK)
+        elif keywords and univ:
+            queryset = User.objects.filter(keywords=keywords, univ=univ).all()
+            response_serializer = UserResponseSerializer(queryset, many=True)
+            return Response(data=response_serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
     def create(self, request, *args, **kwargs):
         serializer = UserCreateSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
